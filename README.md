@@ -6,7 +6,7 @@ String url = "jdbc:database://host:port/databasename";
 ```
 ```
 <h3>Create Necessary Table Query : </h3>
-```
+
 ```
 CREATE TABLE `student` (
   `id` int(11) NOT NULL AUTO_INCREMENT,

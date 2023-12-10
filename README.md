@@ -1,4 +1,4 @@
-<h2>Getting Started</h2>
+# Getting Started
 ## Change url of you're choosing database :
 
 ```

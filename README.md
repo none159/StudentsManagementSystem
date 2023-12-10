@@ -1,11 +1,11 @@
 <h2>Getting Started</h2>
-<h3>Change url of you're choosing database :</h3>
+##Change url of you're choosing database :
 
 ```
 String url = "jdbc:database://host:port/databasename";
 ```
 
-<h3>Create Necessary Table Query : </h3>
+##Create Necessary Table Query : 
 
 ```
 CREATE TABLE `student` (

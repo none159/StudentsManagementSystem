@@ -2,7 +2,9 @@
 ## Change url of you're choosing database :
 
 ```
+String username = "you're username";
 String url = "jdbc:database://host:port/databasename";
+String password = "you're password";
 ```
 
 ## Create Necessary Table Query : 

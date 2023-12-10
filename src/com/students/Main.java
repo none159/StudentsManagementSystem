@@ -9,57 +9,64 @@ public class Main {
 	static  StudentManagementSystem sms = new StudentManagementSystem();
      static Scanner input = new Scanner(System.in);
      static int choice;
-     static public void addstud() {
-	     UUID id = UUID.randomUUID();
+     static public void addstud(Connection connection) {
+	     
 	     System.out.println("Enter You're Name : ");
 	     String name = input.next();
 	     System.out.println("Enter You're Grade : ");
 	     String grade = input.next();
-	     sms.addStudents(new Student(id,name,grade));
+	     System.out.println("Enter You're Class Name : ");
+	     String classname = input.next();
+	     System.out.println("Enter You're Student id (You can't change id): ");
+	     String id = input.next();
+	     sms.addStudents(new Student(name,grade,classname,id),connection);
 	     choice=0;
 }
-     static public void updatestud() {
-	 System.out.println("What's the id of Student you're trying to update : ");
+     static public void updatestud(Connection connection) {
+	 System.out.println("What's the name of Student you're trying to update : ");
+     String oldname = input.next();
+     System.out.println("What's the id of Student you're trying to update : ");
      String id = input.next();
      System.out.println("Enter You're new Name : ");
-     String name = input.next();
+     String newname = input.next();
      System.out.println("Enter You're new Grade : ");
      String grade = input.next();
-     sms.updateStudent(id,name,grade);
+     System.out.println("Enter You're new Class Name : ");
+     String classname = input.next();
+     sms.updateStudent(oldname,newname,grade,classname,id,connection);
      choice = 0;
 }
-     static public void searchstud() {
+     static public void searchstud(Connection connection) {
     	 System.out.println("Enter Name you want to search for : ");
     	 String name = input.next();
-    	 if(sms.searchStudentByName(name)!= null) {
-    	 System.out.println(sms.searchStudentByName(name));
-    	 }
-    	 else {
-    		 System.out.println("Not Found");
-    	 }
+    	  System.out.println("Enter You're Class Name : ");
+ 	     String classname = input.next();
+ 	    System.out.println("Enter You're id: ");
+	     String id = input.next();
+    	sms.searchStudentByName(name,classname,id,connection);
     	 choice=0;
      }
-     static public void deletestud() {
-    	 System.out.println("Enter id of student you want to delete : ");
-    	 String id = input.next();
-    	 sms.deleteStudent(id);
+     static public void deletestud(Connection connection) {
+    	 System.out.println("Enter name of student you want to delete : ");
+    	 String name = input.next();
+    	  System.out.println("Enter You're Class Name : ");
+ 	     String classname = input.next();
+ 	    System.out.println("Enter You're Student id : ");
+	     String id = input.next();
+    	 sms.deleteStudent(name,classname,id,connection);
     	 choice=0;
      }
-     static public void viewstuds() {
-    	 sms.viewStudents();
+     static public void viewstuds(Connection connection) {
+    	 sms.viewStudents(connection);
     	 choice=0;
      }
-	public static void main(String[] args)  {
+	public static void main(String[] args) throws SQLException, ClassNotFoundException  {
 		String username ="root";
 		String url = "jdbc:mysql://localhost:3306/Students";
 		String password="";
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection connection = DriverManager.getConnection(url,username,password);
-		} catch (ClassNotFoundException | SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection connection = DriverManager.getConnection(url,username,password);
+		
 		while(choice == 0) {
      System.out.print("Choose Fonctionality : \n 1 - Add Student \n 2 - Update Student \n 3 - Search For Student \n 4 - Delete Student \n 5 - View Students \n 6 - Quit \n");
      System.out.println("Choice : ");
@@ -69,19 +76,19 @@ public class Main {
      case 0:
     	 break;
      case 1:
-    	 addstud();
+    	 addstud(connection);
     	 break;
      case 2 :
-    	 updatestud();
+    	 updatestud(connection);
     	 break;
      case 3 :
-    	  searchstud();
+    	  searchstud(connection);
     	  break;
      case 4 : 
-    	 deletestud();
+    	 deletestud(connection);
     	 break;
      case 5 : 
-    	 viewstuds();
+    	 viewstuds(connection);
     	 break;
      case 6:
     	 System.out.println("Exiting programme....");
